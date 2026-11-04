@@ -1,0 +1,12 @@
+{
+  "name": "frigo-flow-local",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm --prefix marketing-prototype install --no-audit --no-fund",
+    "dev": "npm --prefix marketing-prototype run dev",
+    "build": "npm --prefix marketing-prototype run build",
+    "start": "npm --prefix marketing-prototype run start",
+    "typecheck": "npm --prefix marketing-prototype run typecheck"
+  }
+}
