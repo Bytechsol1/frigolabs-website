@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import './login.css';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +36,7 @@ export default function LoginPage() {
         <button type="submit" className="button">Sign in <span aria-hidden="true">↗</span></button>
         <p className="form-status" role="status">{message}</p>
       </form>
-      <div className="login-help">Need access or help signing in? <a href="/#contact">Contact our team ↗</a></div>
+      <div className="login-help">Need access or help signing in? <a href="/#demo">Contact our team ↗</a></div>
       <p className="login-disclaimer">Access is intended for authorized Admin, Clinic, and Patient accounts. Account permissions will be determined by the connected application.</p>
     </section>
   </main>;
