@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { siteConfig } from '../../config';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
@@ -16,8 +16,6 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const loginRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -36,19 +34,10 @@ export function Header() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      setLoginOpen(false);
-      setMenuOpen(false);
-    };
-    const onClick = (event: MouseEvent) => {
-      if (loginRef.current && !loginRef.current.contains(event.target as Node)) setLoginOpen(false);
+      if (event.key === 'Escape') setMenuOpen(false);
     };
     document.addEventListener('keydown', onKey);
-    document.addEventListener('click', onClick);
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.removeEventListener('click', onClick);
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, []);
 
   useEffect(() => {
@@ -70,15 +59,7 @@ export function Header() {
         </nav>
 
         <div className="header__actions">
-          <div className="login" ref={loginRef}>
-            <button type="button" className="login__toggle" aria-expanded={loginOpen} aria-controls="login-menu" onClick={() => setLoginOpen(open => !open)}>
-              Login <Icon name="chevronDown" />
-            </button>
-            <div id="login-menu" className="login__menu" hidden={!loginOpen}>
-              <a href={siteConfig.clinicLoginUrl}><Icon name="user" />Clinic Portal</a>
-              <a href={siteConfig.patientLoginUrl}><Icon name="users" />Patient Portal</a>
-            </div>
-          </div>
+          <a href={siteConfig.loginUrl} className="btn btn--navy">Login</a>
           <a href="#demo" className="btn btn--navy">Request Demo <Icon name="arrow" /></a>
         </div>
 
@@ -90,10 +71,7 @@ export function Header() {
       <div id="mobile-menu" className="mobile-menu" hidden={!menuOpen}>
         <nav className="wrap" aria-label="Mobile">
           {links.map(([id, label]) => <a key={id} href={`#${id}`} onClick={closeMenu}>{label}<Icon name="chevronRight" /></a>)}
-          <div className="mobile-menu__logins">
-            <a href={siteConfig.clinicLoginUrl} className="btn btn--outline"><Icon name="user" />Clinic Login</a>
-            <a href={siteConfig.patientLoginUrl} className="btn btn--outline"><Icon name="users" />Patient Login</a>
-          </div>
+          <a href={siteConfig.loginUrl} className="btn btn--navy mobile-menu__login">Login</a>
           <a href="#demo" className="btn btn--gold" onClick={closeMenu}>Request a Demo <Icon name="arrow" /></a>
         </nav>
       </div>

@@ -100,12 +100,6 @@ h3 { font-size: 1rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
 .btn--outline:hover { border-color: var(--navy); }
 .btn--outline svg:first-child { color: var(--gold); width: 22px; height: 22px; }
 .btn--outline:hover svg:first-child { transform: none; }
-.btn--outline-gold { border-color: var(--gold); color: var(--gold-2); }
-.btn--outline-gold:hover { background: rgba(217, 177, 79, .1); }
-.btn--outline-light { border-color: rgba(255, 255, 255, .5); color: #fff; }
-.btn--outline-light:hover { background: rgba(255, 255, 255, .08); border-color: #fff; }
-.btn--outline-gold svg, .btn--outline-light svg { width: 16px; height: 16px; }
-.btn--outline-gold:hover svg:last-child, .btn--outline-light:hover svg:last-child { transform: none; }
 .btn--ghost-light { color: #fff; border-color: rgba(255, 255, 255, .35); background: transparent; }
 .btn--ghost-light:hover { border-color: #fff; }
 
@@ -128,15 +122,7 @@ h3 { font-size: 1rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
 .header__nav a { position: relative; font-size: 14px; font-weight: 500; color: var(--ink); padding: 6px 0; transition: color .2s; }
 .header__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
 .header__nav a:hover::after, .header__nav a.is-active::after { transform: scaleX(1); }
-.header__actions { display: flex; align-items: center; gap: 22px; }
-.login { position: relative; }
-.login__toggle { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 8px 2px; font-size: 14px; font-weight: 500; color: var(--ink); }
-.login__toggle svg { width: 15px; height: 15px; transition: transform .25s var(--ease); }
-.login__toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
-.login__menu { position: absolute; right: -8px; top: calc(100% + 10px); min-width: 200px; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); animation: pop .18s var(--ease); }
-.login__menu a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; font-weight: 500; }
-.login__menu a svg { width: 17px; height: 17px; color: var(--gold); }
-.login__menu a:hover { background: var(--cream); }
+.header__actions { display: flex; align-items: center; gap: 12px; }
 @keyframes pop { from { opacity: 0; transform: translateY(-4px); } }
 .header__toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line-2); background: #fff; border-radius: 10px; color: var(--navy); }
 .mobile-menu { display: none; }
@@ -247,15 +233,13 @@ h3 { font-size: 1rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
 
 /* Footer */
 .footer { background: var(--navy); color: #c5c9d6; padding: 44px 0; }
-.footer__grid { display: grid; grid-template-columns: 1.6fr .8fr .8fr .8fr auto; gap: 40px; align-items: start; }
+.footer__grid { display: grid; grid-template-columns: 1.6fr .8fr .8fr .8fr; gap: 40px; align-items: start; }
 .footer__brand p { margin-top: 14px; font-size: 13.5px; max-width: 300px; line-height: 1.6; }
 .footer__brand .logo__mark { width: 34px; }
 .footer__col { display: flex; flex-direction: column; gap: 6px; }
 .footer__col h2 { font-family: var(--font-sans-stack); font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 0; margin-bottom: 4px; }
 .footer__col a { font-size: 13.5px; transition: color .2s; width: fit-content; }
 .footer__col a:hover { color: var(--gold-2); }
-.footer__logins { display: flex; gap: 12px; align-self: center; padding-left: 40px; border-left: 1px solid rgba(255, 255, 255, .14); }
-.footer__logins .btn { min-height: 40px; font-size: 13.5px; padding: 0 16px; }
 
 /* ==========================================================================
    Product mockups — styled after the real Frigo Flow web app (top navigation).
@@ -416,7 +400,6 @@ h3 { font-size: 1rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
   .protect > :nth-child(even) { border-left: 1px solid var(--line-2); }
   .closing__grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
-  .footer__logins { grid-column: 1 / -1; padding: 24px 0 0; border-left: 0; border-top: 1px solid rgba(255, 255, 255, .14); }
 }
 
 @media (max-width: 1023px) {
@@ -426,9 +409,8 @@ h3 { font-size: 1rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
   .mobile-menu nav { display: flex; flex-direction: column; padding: 12px 0 32px; }
   .mobile-menu nav > a:not(.btn) { display: flex; justify-content: space-between; align-items: center; padding: 18px 2px; border-bottom: 1px solid var(--line); font-size: 17px; font-weight: 500; color: var(--navy); }
   .mobile-menu nav > a:not(.btn) svg { width: 18px; height: 18px; color: var(--gold); }
-  .mobile-menu__logins { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0 12px; }
-  .mobile-menu__logins svg { width: 17px; height: 17px; }
-  .mobile-menu .btn--gold { min-height: 50px; }
+  .mobile-menu__login { margin: 24px 0 12px; }
+  .mobile-menu .btn { min-height: 50px; }
 }
 
 /* Mobile: under 768px */
@@ -477,11 +459,8 @@ h3 { font-size: 1rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
   .faq__answer p { padding: 0 16px 16px; }
   .footer__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 24px; }
   .footer__brand { grid-column: 1 / -1; }
-  .footer__logins { flex-wrap: wrap; }
-  .footer__logins .btn { flex: 1 1 140px; }
 }
 
 @media (max-width: 380px) {
-  .mobile-menu__logins { grid-template-columns: minmax(0, 1fr); }
   .logo__word { font-size: 15px; letter-spacing: .1em; }
 }

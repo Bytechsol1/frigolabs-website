@@ -207,10 +207,6 @@ export default function Home() {
             <a href={siteConfig.privacyUrl}>Privacy Policy</a>
             <a href={siteConfig.termsUrl}>Terms of Service</a>
           </nav>
-          <div className="footer__logins">
-            <a href={siteConfig.clinicLoginUrl} className="btn btn--outline-gold"><Icon name="user" />Clinic Login</a>
-            <a href={siteConfig.patientLoginUrl} className="btn btn--outline-light"><Icon name="users" />Patient Login</a>
-          </div>
         </div>
       </footer>
     </>
