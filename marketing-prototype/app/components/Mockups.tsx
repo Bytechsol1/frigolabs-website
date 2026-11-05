@@ -1,7 +1,8 @@
 import { Icon, type IconName } from './Icon';
 import { LogoMark } from './Logo';
 
-// All names and values below are fictional sample data. No real patient information.
+// Product previews styled after the real Frigo Flow web app (top navigation bar).
+// All names and values below are fictional sample data. No real clinic or patient information.
 
 type Status = 'progress' | 'shipped' | 'available';
 const statusLabel: Record<Status, string> = { progress: 'In Progress', shipped: 'Kit Shipped', available: 'Results Available' };
@@ -14,69 +15,82 @@ function MiniLogo() {
   return (
     <span className="m-logo">
       <LogoMark className="m-logo__mark" />
+      <span className="m-logo__divider" />
       <span><b>FRIGO</b> FLOW</span>
     </span>
   );
 }
 
-const dashboardNav: [IconName, string][] = [
-  ['grid', 'Dashboard'],
-  ['users', 'Patients'],
-  ['clipboard', 'Test Orders'],
-  ['file', 'Results'],
-  ['message', 'Messages'],
-  ['settings', 'Clinic Settings'],
-];
+function NexGenLogo() {
+  return <span className="nexgen"><Icon name="leaf" />NexGen Wellness</span>;
+}
 
-const stats: [IconName, string, string][] = [
-  ['users', '124', 'Active Patients'],
-  ['clipboard', '37', 'Open Test Orders'],
-  ['clock', '29', 'In Progress'],
-  ['flask', '86', 'Results Available'],
-];
+const appNav = ['Dashboard', 'Clinics', 'Clinic Branding', 'Patients', 'Sessions', 'Lab Results'];
 
-const recentOrders: [string, string, Status, string][] = [
-  ['John Miller', 'Comprehensive Panel', 'progress', 'Nov 3, 2026'],
-  ['Sarah Davis', 'Hormone Health Panel', 'shipped', 'Nov 2, 2026'],
-  ['Michael Reed', 'Metabolic Panel', 'available', 'Nov 1, 2026'],
+/** Floating top bar used by the real web app: logo · pill menu · bell, settings, user. */
+function TopBar({ items, active, brand = 'frigo', user = 'Dr. Collins', initial = 'M', compact = false }: {
+  items: string[]; active: string; brand?: 'frigo' | 'nexgen'; user?: string; initial?: string; compact?: boolean;
+}) {
+  return (
+    <div className={`m-top m-top--${brand}`}>
+      {brand === 'frigo' ? <MiniLogo /> : <NexGenLogo />}
+      <ul className="m-top__nav">
+        {items.map(item => <li key={item} className={item === active ? 'is-active' : undefined}>{item}</li>)}
+      </ul>
+      <div className="m-top__right">
+        {!compact && <span className="m-circle"><Icon name="bell" /></span>}
+        {!compact && <span className="m-circle"><Icon name="gear" /></span>}
+        <span className="m-user"><span className="m-user__avatar">{initial}</span>{!compact && <b>{user}</b>}<Icon name="chevronDown" /></span>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ icon, label, value }: { icon: IconName; label: string; value: string }) {
+  return (
+    <div className="m-stat">
+      <div className="m-stat__head"><span className="m-stat__icon"><Icon name={icon} /></span><span className="m-stat__label">{label}</span></div>
+      <b className="m-stat__value">{value}</b>
+    </div>
+  );
+}
+
+function ListRow({ icon, title, sub, status }: { icon: IconName; title: string; sub: string; status: Status }) {
+  return (
+    <div className="m-row">
+      <span className="m-row__icon"><Icon name={icon} /></span>
+      <span className="m-row__text"><b>{title}</b><small>{sub}</small></span>
+      <Pill status={status} />
+      <span className="m-row__go"><Icon name="chevronRight" /></span>
+    </div>
+  );
+}
+
+const recentOrders: [string, string, Status][] = [
+  ['John Miller', 'Comprehensive Panel · Nov 3, 2026', 'progress'],
+  ['Sarah Davis', 'Hormone Health Panel · Nov 2, 2026', 'shipped'],
+  ['Michael Reed', 'Metabolic Panel · Nov 1, 2026', 'available'],
 ];
 
 export function DashboardScreen() {
   return (
     <div className="dash">
-      <aside className="dash__side">
-        <MiniLogo />
-        <ul>
-          {dashboardNav.map(([icon, label], i) => (
-            <li key={label} className={i === 0 ? 'is-active' : undefined}><Icon name={icon} />{label}</li>
-          ))}
-        </ul>
-      </aside>
-      <div className="dash__main">
-        <div className="dash__top">
-          <div>
-            <strong>Dashboard</strong>
-            <small>NexGen Wellness Clinic</small>
-          </div>
-          <div className="dash__user">
-            <Icon name="bell" />
-            <span className="avatar">EC</span>
-            <span><b>Dr. Emily Carter</b><small>Physician</small></span>
-            <Icon name="chevronDown" />
-          </div>
-        </div>
+      <TopBar items={appNav} active="Dashboard" />
+      <div className="dash__body">
+        <p className="dash__hello">Good Afternoon!</p>
         <div className="dash__stats">
-          {stats.map(([icon, value, label]) => (
-            <div key={label} className="stat"><Icon name={icon} /><b>{value}</b><small>{label}</small></div>
-          ))}
+          <StatCard icon="users" label="Active Patients" value="124" />
+          <StatCard icon="clipboard" label="Open Orders" value="37" />
+          <StatCard icon="clock" label="In Progress" value="29" />
+          <StatCard icon="flask" label="Results Ready" value="86" />
         </div>
-        <div className="dash__card">
-          <strong>Recent Test Orders</strong>
-          <div className="m-table m-table--4">
-            <span className="m-th">Patient</span><span className="m-th">Test Panel</span><span className="m-th">Status</span><span className="m-th">Updated</span>
-            {recentOrders.map(([name, panel, status, date]) => (
-              <div className="m-row" key={name}><span>{name}</span><span>{panel}</span><span><Pill status={status} /></span><span>{date}</span></div>
-            ))}
+        <div className="m-card">
+          <div className="m-card__head">
+            <span className="m-card__title"><Icon name="clipboard" />Recent Test Orders</span>
+            <span className="m-btn"><Icon name="clipboard" />View Orders</span>
+          </div>
+          <div className="m-list">
+            {recentOrders.map(([name, sub, status]) => <ListRow key={name} icon="user" title={name} sub={sub} status={status} />)}
           </div>
         </div>
       </div>
@@ -93,7 +107,7 @@ export function PatientPhone({ brand = 'frigo' }: { brand?: 'frigo' | 'nexgen' }
       <div className="phone__screen">
         <div className="papp">
           <div className="papp__bar">
-            {brand === 'frigo' ? <><Icon name="chevronLeft" /><MiniLogo /><Icon name="menu" /></> : <span className="nexgen"><Icon name="leaf" />NexGen Wellness</span>}
+            {brand === 'frigo' ? <><Icon name="chevronLeft" /><MiniLogo /><Icon name="menu" /></> : <NexGenLogo />}
           </div>
           {brand === 'frigo' && <p className="papp__hello">Welcome, Sarah</p>}
           <ul>
@@ -133,20 +147,21 @@ export function TestOrdersPanel() {
   return (
     <div className="orders" role="img" aria-label="Test orders table showing fictional patients and their testing status">
       <div className="orders__app">
-        <aside className="orders__side">
-          <LogoMark className="orders__mark" />
-          {(['grid', 'users', 'clipboard', 'file'] as IconName[]).map(icon => <span key={icon}><Icon name={icon} /></span>)}
-        </aside>
-        <div className="orders__main">
-          <div className="orders__top">
-            <strong>Test Orders</strong>
-            <span className="orders__search"><Icon name="search" />Search patients...</span>
-          </div>
-          <div className="m-table m-table--4">
-            <span className="m-th">Patient</span><span className="m-th">Test Panel</span><span className="m-th">Status</span><span className="m-th">Collection</span>
-            {testOrders.map(([name, panel, status, date]) => (
-              <div className="m-row" key={name}><span>{name}</span><span>{panel}</span><span><Pill status={status} /></span><span>{date}</span></div>
-            ))}
+        <TopBar items={['Dashboard', 'Patients', 'Sessions', 'Lab Results']} active="Sessions" compact />
+        <div className="orders__body">
+          <div className="m-card">
+            <div className="m-card__head">
+              <span className="m-card__title"><Icon name="clipboard" />Test Orders</span>
+              <span className="orders__search"><Icon name="search" />Search patients...</span>
+            </div>
+            <div className="m-table">
+              <span className="m-th">Patient</span><span className="m-th">Test Panel</span><span className="m-th">Status</span><span className="m-th">Collection</span>
+              {testOrders.map(([name, panel, status, date]) => (
+                <div className="m-tr" key={name}>
+                  <span className="m-tr__name"><span className="m-tr__dot" />{name}</span><span>{panel}</span><span><Pill status={status} /></span><span>{date}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -155,22 +170,16 @@ export function TestOrdersPanel() {
 }
 
 export function BrandedDevices() {
-  const nav: [IconName, string][] = [['grid', 'Dashboard'], ['users', 'Patients'], ['file', 'Results'], ['message', 'Messages']];
-  const cards: [IconName, string, string][] = [['users', '86', 'Patients'], ['box', '12', 'Kit Shipped'], ['file', '41', 'Results']];
   return (
     <div className="branded" role="img" aria-label="Example clinic-branded portal for the fictional NexGen Wellness clinic, on desktop and mobile">
       <div className="browser">
-        <div className="browser__bar"><Icon name="chevronLeft" /><span className="nexgen"><Icon name="leaf" />NexGen Wellness</span></div>
-        <div className="browser__app">
-          <aside>
-            {nav.map(([icon, label], i) => <span key={label} className={i === 1 ? 'is-active' : undefined}><Icon name={icon} />{label}</span>)}
-          </aside>
-          <div className="browser__main">
-            <strong>Welcome, Dr. Carter</strong>
-            <small>Here’s today’s overview</small>
-            <div className="browser__cards">
-              {cards.map(([icon, value, label]) => <span key={label}><Icon name={icon} /><b>{value}</b><small>{label}</small></span>)}
-            </div>
+        <TopBar items={['Dashboard', 'Patients', 'Results', 'Messages']} active="Patients" brand="nexgen" compact />
+        <div className="browser__main">
+          <p className="browser__hello">Welcome, Dr. Collins</p>
+          <div className="browser__cards">
+            <StatCard icon="users" label="Patients" value="86" />
+            <StatCard icon="box" label="Kits Shipped" value="12" />
+            <StatCard icon="file" label="Results" value="41" />
           </div>
         </div>
       </div>
