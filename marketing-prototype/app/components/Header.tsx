@@ -60,7 +60,7 @@ export function Header() {
 
   return (
     <header className={`header${scrolled ? ' is-scrolled' : ''}${menuOpen ? ' is-open' : ''}`}>
-      <div className="wrap header__inner">
+      <div className="wrap wrap--wide header__inner">
         <a href="#top" className="header__brand" aria-label="Frigo Flow home" onClick={closeMenu}><Logo /></a>
 
         <nav className="header__nav" aria-label="Main">

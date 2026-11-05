@@ -58,7 +58,7 @@ export default function Home() {
         {/* Hero */}
         <section className="hero" id="top">
           <Waves className="waves--hero" />
-          <div className="wrap hero__grid">
+          <div className="wrap wrap--wide hero__grid">
             <div className="hero__copy" data-reveal>
               <p className="eyebrow eyebrow--line">Diagnostic workflow platform for clinics</p>
               <h1>From Patient Enrollment to<br className="br-desktop" /> Lab Results. <span className="gold">One Connected Workflow.</span></h1>
