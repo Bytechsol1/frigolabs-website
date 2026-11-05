@@ -24,14 +24,13 @@ From the repository root (or from `marketing-prototype/`):
 | `lib/demo.ts` | Shared form schema (fields, dropdown options, validation) |
 | `app/components/Logo.tsx`, `app/icon.svg` | Vector logo and favicon |
 | `app/globals.css` | Design tokens and all site styles; breakpoints 1199px (tablet) and 767px (mobile) |
-| `app/login/` | Local login design preview (not connected to authentication) |
 | `config.ts` | Login, legal and site URLs, read from environment variables |
 
 The product mockups scale with their container using CSS container units (`cqi`), so they stay sharp at every width.
 
 ## Configuration (`.env.local`, see `.env.example`)
 
-- `NEXT_PUBLIC_CLINIC_LOGIN_URL`, `NEXT_PUBLIC_PATIENT_LOGIN_URL`: portal destinations. Default is the local `/login` preview.
+- `NEXT_PUBLIC_CLINIC_LOGIN_URL`, `NEXT_PUBLIC_PATIENT_LOGIN_URL`: portal destinations. Default is `#` until the real portal URLs exist.
 - `NEXT_PUBLIC_PRIVACY_URL`, `NEXT_PUBLIC_TERMS_URL`: legal pages. **Default is `#`. These must be set before launch.**
 - `NEXT_PUBLIC_SITE_URL`: canonical / Open Graph base URL.
 - `NEXT_PUBLIC_ALLOW_INDEXING=true`: allows search indexing. Set it only on the approved production domain; otherwise the site is `noindex`.

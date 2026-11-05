@@ -1,5 +1,0 @@
-﻿# Proposed workflow status map — not implemented
-
-Separate dimensions: coordination (requested, acknowledged); outbound shipping (unknown, preparing, shipped, delivered); collection (unknown, collected); return (unknown, shipped, received); laboratory (unknown, processing, completed); report (unavailable, available). Names are proposals pending source review and laboratory decisions. Shipping must never imply collection, testing, or report availability.
-
-A backend transition service should validate role/tenant/ownership/current state, persist UTC occurrence and receipt timestamps, actor/source/evidence, and atomically commit event plus state. Reject unsupported transitions; handle duplicate events idempotently; reconcile delayed/out-of-order updates without regression. Manual updates must be distinct from confirmed external events. Preserve legacy statuses through explicit reviewed mapping, retaining raw historical Terra values. No migration or transition engine exists in this prototype.
