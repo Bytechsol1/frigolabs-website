@@ -59,7 +59,7 @@ export function Header() {
         </nav>
 
         <div className="header__actions">
-          <a href={siteConfig.loginUrl} className="btn btn--navy">Login</a>
+          <a href={siteConfig.loginUrl} className="btn btn--navy" target="_blank" rel="noopener noreferrer">Login</a>
           <a href="#demo" className="btn btn--navy">Request Demo <Icon name="arrow" /></a>
         </div>
 
@@ -71,7 +71,7 @@ export function Header() {
       <div id="mobile-menu" className="mobile-menu" hidden={!menuOpen}>
         <nav className="wrap" aria-label="Mobile">
           {links.map(([id, label]) => <a key={id} href={`#${id}`} onClick={closeMenu}>{label}<Icon name="chevronRight" /></a>)}
-          <a href={siteConfig.loginUrl} className="btn btn--navy mobile-menu__login">Login</a>
+          <a href={siteConfig.loginUrl} className="btn btn--navy mobile-menu__login" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Login</a>
           <a href="#demo" className="btn btn--gold" onClick={closeMenu}>Request a Demo <Icon name="arrow" /></a>
         </nav>
       </div>
