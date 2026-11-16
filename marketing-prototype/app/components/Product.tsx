@@ -77,20 +77,43 @@ export function Device({ className = '' }: { className?: string }) {
   );
 }
 
-export function ProductHero() {
+const stages: [string, string, string, string][] = [
+  ['01', 'Patient enrolled', 'John Miller · Comprehensive Panel', 'stage__card--1'],
+  ['02', 'Kit delivered', 'Collection kit · Tracking active', 'stage__card--2'],
+  ['03', 'Lab processing', 'Sample received at partner lab', 'stage__card--3'],
+  ['04', 'Results available', 'Physician-reviewed · Ready for clinic', 'stage__card--4'],
+];
+
+const flowPath = 'M 40 130 C 200 130 220 390 380 390 C 470 390 500 280 600 280 C 700 280 730 130 860 130 C 1000 130 1000 390 1160 390';
+
+/** Hero "stage": the kit and device at the centre of the clinic workflow. */
+export function HeroStage() {
   return (
-    <div className="product" role="img" aria-label="Frigo Flow diagnostic collection kit and blood collection device (illustration)">
-      <div className="product__glow" />
-      <KitBox className="product__kit" />
-      <Device className="product__device" />
-      <div className="product__card">
-        <span className="product__dot" />
-        <span><b>Results Available</b><small>Physician-reviewed · Comprehensive Panel</small></span>
+    <div className="stage" role="img" aria-label="Frigo Flow collection kit and device at the centre of the clinic workflow: patient enrolled, kit delivered, lab processing, results available">
+      <svg className="stage__flow" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="flow-fade" x1="0" x2="1">
+            <stop offset="0" stopColor="#fff" stopOpacity="0" />
+            <stop offset=".12" stopColor="#fff" stopOpacity=".22" />
+            <stop offset=".88" stopColor="#fff" stopOpacity=".22" />
+            <stop offset="1" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d={flowPath} className="stage__line" stroke="url(#flow-fade)" />
+        <path d={flowPath} className="stage__pulse" pathLength={1000} />
+      </svg>
+      <div className="stage__pedestal" />
+      <div className="stage__product">
+        <KitBox className="stage__kit" />
+        <Device className="stage__device" />
       </div>
-      <div className="product__chip">
-        <span className="product__chip-label">Kit status</span>
-        <span>Sample received at lab</span>
-      </div>
+      {stages.map(([num, title, sub, mod]) => (
+        <div key={num} className={`stage__card ${mod}`}>
+          <span className="stage__num">{num}</span>
+          <span><b>{title}</b><small>{sub}</small></span>
+          {num === '04' ? <span className="stage__live" /> : <span className="stage__tick" />}
+        </div>
+      ))}
     </div>
   );
 }

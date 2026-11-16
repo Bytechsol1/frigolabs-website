@@ -6,8 +6,10 @@ import { Header } from './components/Header';
 import { Icon, type IconName } from './components/Icon';
 import { Logo } from './components/Logo';
 import { BrandedDevices, HeroDevices } from './components/Mockups';
-import { Device, KitBox, ProductHero } from './components/Product';
+import { HeroSpotlight } from './components/HeroSpotlight';
+import { Device, HeroStage, KitBox } from './components/Product';
 import { Reveal } from './components/Reveal';
+import { Testimonials } from './components/Testimonials';
 
 const steps: [string, string, ReactNode][] = [
   ['Enroll Patient', 'Create a patient and select an available testing package.', (
@@ -89,21 +91,19 @@ export default function Home() {
       <main id="main">
         {/* Hero */}
         <section className="hero" id="top">
-          <div className="wrap wrap--wide">
-            <div className="hero__grid">
-              <div className="hero__copy" data-reveal>
-                <p className="eyebrow eyebrow--light">Diagnostic workflow platform for clinics</p>
-                <h1>From Patient Enrollment to Lab Results. <em>One Connected Workflow.</em></h1>
-                <p className="lead">Simplify diagnostic testing with centralized ordering, collection tracking, and secure results access, all within your clinic’s own branded experience.</p>
-                <div className="hero__actions">
-                  <a href="#demo" className="btn btn--white btn--lg">Request a Demo <Icon name="arrow" /></a>
-                  <a href="#how-it-works" className="btn btn--ghost btn--lg">Explore the Workflow</a>
-                </div>
-              </div>
-              <div className="hero__visual" data-reveal>
-                <ProductHero />
+          <HeroSpotlight target="top" />
+          <div className="hero__grid-bg" aria-hidden="true" />
+          <div className="wrap wrap--wide hero__inner">
+            <div className="hero__copy" data-reveal>
+              <p className="hero__badge"><span />Diagnostic workflow platform for clinics</p>
+              <h1>From Patient Enrollment to Lab Results. <em>One Connected Workflow.</em></h1>
+              <p className="lead">Simplify diagnostic testing with centralized ordering, collection tracking, and secure results access, all within your clinic’s own branded experience.</p>
+              <div className="hero__actions">
+                <a href="#demo" className="btn btn--white btn--lg">Request a Demo <Icon name="arrow" /></a>
+                <a href="#how-it-works" className="btn btn--ghost btn--lg"><Icon name="play" />Explore the Workflow</a>
               </div>
             </div>
+            <div className="hero__visual" data-reveal><HeroStage /></div>
             <ul className="trust">
               {trust.map(([icon, label]) => <li key={label}><Icon name={icon} />{label}</li>)}
             </ul>
@@ -127,6 +127,17 @@ export default function Home() {
               ))}
             </ol>
           </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="section testimonials" aria-labelledby="tm-title">
+          <div className="wrap">
+            <div className="head" data-reveal>
+              <h2 id="tm-title">What Clinics Are Saying</h2>
+              <p>Teams using Frigo Flow to run their testing programs.</p>
+            </div>
+          </div>
+          <Testimonials />
         </section>
 
         {/* For clinics */}
