@@ -5,7 +5,7 @@ import { Faq } from './components/Faq';
 import { Header } from './components/Header';
 import { Icon, type IconName } from './components/Icon';
 import { Logo } from './components/Logo';
-import { BrandedDevices } from './components/Mockups';
+import { BrandStudio } from './components/BrandStudio';
 import { ClinicShowcase } from './components/ClinicShowcase';
 import { PartnerTestimonials } from './components/PartnerTestimonials';
 import { HeroSpotlight } from './components/HeroSpotlight';
@@ -51,7 +51,11 @@ const steps: [string, string, ReactNode][] = [
   )],
 ];
 
-const brandPoints = ['Clinic-specific branding (logo, colors, domain)', 'Branded clinic and patient portals', 'Consistent, professional patient experience'];
+const brandPoints: [IconName, string, string][] = [
+  ['palette', 'Clinic-specific branding', 'Your logo, colors and domain.'],
+  ['layers', 'Branded clinic and patient portals', 'One look across staff and patient views.'],
+  ['check', 'Consistent, professional experience', 'Patients stay with your practice end to end.'],
+];
 
 const capabilities: [IconName, string, string][] = [
   ['users', 'Patient Management', 'Manage patient enrollment and diagnostic histories.'],
@@ -66,14 +70,6 @@ const protections: [IconName, string, string][] = [
   ['lock', 'Role-Based Permissions', 'Ensure the right access for each user.'],
   ['layers', 'Secure Data Handling', 'Built with industry-standard security practices.'],
   ['audit', 'Audit & Access Records', 'Maintain a record of key actions, including agreement acceptance and data access.'],
-];
-
-const trust: [IconName, string][] = [
-  ['palette', 'Clinic-Branded Experience'],
-  ['layers', 'Secure & Compliant'],
-  ['bolt', 'Streamlined Workflow'],
-  ['lock', 'Role-Based Access'],
-  ['audit', 'Audit Records'],
 ];
 
 export default function Home() {
@@ -91,16 +87,12 @@ export default function Home() {
           <div className="wrap wrap--wide hero__inner">
             <div className="hero__copy" data-reveal>
               <h1>From Patient Enrollment to Lab Results. <em>One Connected Workflow.</em></h1>
-              <p className="lead">Simplify diagnostic testing with centralized ordering, collection tracking, and secure results access, all within your clinic’s own branded experience.</p>
               <div className="hero__actions">
                 <a href="#demo" className="btn btn--white btn--lg">Request a Demo <Icon name="arrow" /></a>
                 <a href="#how-it-works" className="btn btn--ghost btn--lg"><Icon name="play" />Explore the Workflow</a>
               </div>
             </div>
             <div className="hero__visual" data-reveal><HeroStage /></div>
-            <ul className="trust">
-              {trust.map(([icon, label]) => <li key={label}><Icon name={icon} />{label}</li>)}
-            </ul>
           </div>
         </section>
 
@@ -108,9 +100,8 @@ export default function Home() {
         <section className="section how" id="how-it-works" aria-labelledby="how-title">
           <div className="how__bg" aria-hidden="true" />
           <div className="wrap">
-            <div className="head" data-reveal>
+            <div className="head head--plain" data-reveal>
               <h2 id="how-title">How It <em>Works</em></h2>
-              <p>A simple, end-to-end testing workflow.</p>
             </div>
             <div className="rail" data-reveal="repeat" aria-hidden="true">
               <span className="rail__track"><span className="rail__fill" /></span>
@@ -142,12 +133,17 @@ export default function Home() {
         {/* White-label */}
         <section className="section brand" aria-labelledby="brand-title">
           <div className="wrap split">
-            <div data-reveal><BrandedDevices /></div>
+            <div data-reveal><BrandStudio /></div>
             <div data-reveal>
-              <h2 id="brand-title">Your Clinic. Your Brand. One Connected Platform.</h2>
+              <h2 id="brand-title">Your Clinic. Your Brand. <em>One Connected Platform.</em></h2>
               <p className="body">Deliver a seamless testing experience for your team and patients with a custom-branded portal, powered by Frigo Flow’s secure infrastructure.</p>
-              <ul className="ticks">
-                {brandPoints.map(point => <li key={point}><Icon name="check" />{point}</li>)}
+              <ul className="brand-points">
+                {brandPoints.map(([icon, title, text]) => (
+                  <li key={title}>
+                    <span className="brand-points__icon"><Icon name={icon} /></span>
+                    <span><b>{title}</b><small>{text}</small></span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -163,8 +159,9 @@ export default function Home() {
             <ul className="cap-grid">
               {capabilities.map(([icon, title, text], i) => (
                 <li key={title} className="cap" data-reveal style={{ transitionDelay: `${(i % 3) * 70}ms` }}>
+                  <span className="cap__ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                   <span className="cap__num">{String(i + 1).padStart(2, '0')}</span>
-                  <Icon name={icon} className="cap__icon" />
+                  <span className="cap__tile"><Icon name={icon} className="cap__icon" /></span>
                   <h3>{title}</h3>
                   <p>{text}</p>
                 </li>
@@ -177,7 +174,6 @@ export default function Home() {
         <section className="section dark protect" aria-labelledby="protect-title">
           <div className="wrap protect__grid">
             <div className="protect__lead" data-reveal>
-              <Icon name="shield" />
               <h2 id="protect-title">Designed With Patient Data Protection in Mind</h2>
             </div>
             {protections.map(([icon, title, text], i) => (
@@ -214,8 +210,8 @@ export default function Home() {
           <div className="footer__cta">
             <h2>Ready to bring diagnostic testing <em>under your brand?</em></h2>
             <div className="footer__cta-actions">
-              <a href="#demo" className="btn btn--white btn--lg">Request a Demo <Icon name="arrow" /></a>
-              <a href={siteConfig.loginUrl} className="btn btn--ghost btn--lg" target="_blank" rel="noopener noreferrer">Login</a>
+              <a href={siteConfig.signupUrl} className="btn btn--white btn--lg btn--hot" target="_blank" rel="noopener noreferrer">Sign Up <Icon name="arrow" /></a>
+              <a href={siteConfig.loginUrl} className="btn btn--ghost btn--lg btn--hot" target="_blank" rel="noopener noreferrer">Login</a>
             </div>
           </div>
 
@@ -256,11 +252,6 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="wrap wrap--wide footer__base">
-          <span>© {new Date().getFullYear()} Frigo Flow. All rights reserved.</span>
-          <span className="footer__made"><i />Diagnostic workflow platform for clinics</span>
-          <a href="#top" className="footer__top">Back to top <Icon name="arrow" /></a>
-        </div>
       </footer>
     </>
   );

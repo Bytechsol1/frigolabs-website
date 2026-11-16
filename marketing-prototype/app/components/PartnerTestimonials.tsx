@@ -25,7 +25,7 @@ class FrigoTestimonialSlider {
   track: HTMLElement; progress: HTMLElement; counter: HTMLElement;
   reducedMotion: MediaQueryList; slides: HTMLElement[] = [];
   pendingFrame: number | null = null; autoplayTimer?: ReturnType<typeof setTimeout>;
-  autoplayPaused = false; focused = false; dragging = false; visible = true;
+  autoplayPaused = false; focused = false; dragging = false; hovered = false; visible = true;
   autoplayButton?: HTMLButtonElement; resizeObserver: ResizeObserver | null = null;
   visibilityObserver?: IntersectionObserver; abort = new AbortController();
 
@@ -87,6 +87,9 @@ class FrigoTestimonialSlider {
     this.root.addEventListener('focusout', () => {
       setTimeout(() => { this.focused = !!this.root.querySelector(':focus-visible'); this.scheduleAutoplay(); }, 0);
     }, { signal });
+    // Pause while a mouse pointer rests on a testimonial card.
+    this.track.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse' || this.hovered || !(e.target as Element).closest('.signature-slide')) return; this.hovered = true; this.scheduleAutoplay(); }, { signal });
+    this.track.addEventListener('pointerleave', () => { if (!this.hovered) return; this.hovered = false; this.scheduleAutoplay(); }, { signal });
     this.track.addEventListener('pointerdown', () => { this.dragging = true; this.scheduleAutoplay(); }, { signal });
     const release = () => { this.dragging = false; this.scheduleAutoplay(); };
     window.addEventListener('pointerup', release, { signal });
@@ -106,7 +109,7 @@ class FrigoTestimonialSlider {
   scheduleAutoplay() {
     clearTimeout(this.autoplayTimer);
     if (this.abort.signal.aborted) return;
-    const playing = !this.autoplayPaused && !this.focused && !this.dragging && this.visible && !document.hidden && !this.reducedMotion.matches;
+    const playing = !this.autoplayPaused && !this.focused && !this.dragging && !this.hovered && this.visible && !document.hidden && !this.reducedMotion.matches;
     this.counter.setAttribute('aria-live', playing ? 'off' : 'polite');
     if (!playing) return;
     this.autoplayTimer = setTimeout(() => {
@@ -211,7 +214,7 @@ export function PartnerTestimonials() {
   return (
     <section className="ff-src testimonials-section section-pad" id="testimonials" aria-labelledby="testimonials-heading" aria-describedby="testimonials-disclaimer">
       <div className="container">
-        <div className="testimonials-heading"><p className="eyebrow">TRUSTED HEALTHCARE PARTNERS</p><h2 id="testimonials-heading">Experiences That Move Healthcare Forward.</h2><p className="testimonials-intro">Discover how modern diagnostic infrastructure can help clinics and healthcare providers deliver better testing experiences.</p></div>
+        <div className="testimonials-heading"><h2 id="testimonials-heading">Experiences That Move Healthcare Forward.</h2><p className="testimonials-intro">Discover how modern diagnostic infrastructure can help clinics and healthcare providers deliver better testing experiences.</p></div>
         <p id="testimonials-disclaimer" className="testimonial-accessible-note">Fictional placeholder testimonials. Not actual customer endorsements.</p>
         <div className="signature-slider" ref={sliderRef} data-testimonial-slider role="region" aria-roledescription="carousel" aria-label="Healthcare partner placeholder testimonials">
           <div className="signature-track" tabIndex={0} aria-label="Testimonial slides. Use left and right arrow keys to navigate."></div>

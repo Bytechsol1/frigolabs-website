@@ -21,8 +21,9 @@ export function Faq() {
           <div key={question} className={`faq__item${isOpen ? ' is-open' : ''}`}>
             <h3>
               <button type="button" id={`faq-q-${i}`} aria-expanded={isOpen} aria-controls={`faq-a-${i}`} onClick={() => setOpen(isOpen ? null : i)}>
-                {question}
-                <Icon name="chevronDown" />
+                <span className="faq__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span className="faq__q">{question}</span>
+                <span className="faq__chev" aria-hidden="true"><Icon name="chevronDown" /></span>
               </button>
             </h3>
             <div id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} className="faq__answer" inert={!isOpen}>

@@ -117,7 +117,7 @@ export function DemoForm() {
       <div className="demo__honey" aria-hidden="true">
         <label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label>
       </div>
-      <button type="submit" className="btn btn--white" disabled={state === 'sending'} aria-busy={state === 'sending'}>
+      <button type="submit" className="btn btn--white btn--hot" disabled={state === 'sending'} aria-busy={state === 'sending'}>
         {state === 'sending' ? 'Sending…' : 'Request a Demo'} <Icon name="arrow" />
       </button>
       <p className="demo__status" role="status" aria-live="polite">{state === 'error' ? message : ''}</p>

@@ -21,19 +21,22 @@ function MiniLogo() {
   );
 }
 
-function NexGenLogo() {
-  return <span className="nexgen"><Icon name="leaf" />NexGen Wellness</span>;
+export type ClinicBrand = { name: string; icon: IconName };
+const defaultClinic: ClinicBrand = { name: 'NexGen Wellness', icon: 'leaf' };
+
+function NexGenLogo({ clinic = defaultClinic }: { clinic?: ClinicBrand }) {
+  return <span className="nexgen"><Icon name={clinic.icon} />{clinic.name}</span>;
 }
 
 const appNav = ['Dashboard', 'Clinics', 'Clinic Branding', 'Patients', 'Sessions', 'Lab Results'];
 
 /** Floating top bar used by the real web app: logo · pill menu · bell, settings, user. */
-function TopBar({ items, active, brand = 'frigo', user = 'Dr. Collins', initial = 'M', compact = false }: {
-  items: string[]; active: string; brand?: 'frigo' | 'nexgen'; user?: string; initial?: string; compact?: boolean;
+function TopBar({ items, active, brand = 'frigo', user = 'Dr. Collins', initial = 'M', compact = false, clinic }: {
+  items: string[]; active: string; brand?: 'frigo' | 'nexgen'; user?: string; initial?: string; compact?: boolean; clinic?: ClinicBrand;
 }) {
   return (
     <div className={`m-top m-top--${brand}`}>
-      {brand === 'frigo' ? <MiniLogo /> : <NexGenLogo />}
+      {brand === 'frigo' ? <MiniLogo /> : <NexGenLogo clinic={clinic} />}
       <ul className="m-top__nav">
         {items.map(item => <li key={item} className={item === active ? 'is-active' : undefined}>{item}</li>)}
       </ul>
@@ -98,7 +101,7 @@ export function DashboardScreen() {
   );
 }
 
-export function PatientPhone({ brand = 'frigo' }: { brand?: 'frigo' | 'nexgen' }) {
+export function PatientPhone({ brand = 'frigo', clinic }: { brand?: 'frigo' | 'nexgen'; clinic?: ClinicBrand }) {
   const items: [IconName, string, string][] = brand === 'frigo'
     ? [['clipboard', 'My Tests', 'Track your test orders'], ['file', 'Results', 'View your lab results'], ['message', 'Messages', 'Updates from your clinic']]
     : [['clipboard', 'Your Tests', ''], ['file', 'Results', ''], ['message', 'Messages', '']];
@@ -107,7 +110,7 @@ export function PatientPhone({ brand = 'frigo' }: { brand?: 'frigo' | 'nexgen' }
       <div className="phone__screen">
         <div className="papp">
           <div className="papp__bar">
-            {brand === 'frigo' ? <><Icon name="chevronLeft" /><MiniLogo /><Icon name="menu" /></> : <NexGenLogo />}
+            {brand === 'frigo' ? <><Icon name="chevronLeft" /><MiniLogo /><Icon name="menu" /></> : <NexGenLogo clinic={clinic} />}
           </div>
           {brand === 'frigo' && <p className="papp__hello">Welcome, Sarah</p>}
           <ul>
@@ -137,11 +140,11 @@ export function HeroDevices() {
   );
 }
 
-export function BrandedDevices() {
+export function BrandedDevices({ clinic }: { clinic?: ClinicBrand }) {
   return (
-    <div className="branded" role="img" aria-label="Example clinic-branded portal for the fictional NexGen Wellness clinic, on desktop and mobile">
+    <div className="branded" role="img" aria-label={`Example clinic-branded portal for the fictional ${(clinic ?? defaultClinic).name} clinic, on desktop and mobile`}>
       <div className="browser">
-        <TopBar items={['Dashboard', 'Patients', 'Results', 'Messages']} active="Patients" brand="nexgen" compact />
+        <TopBar items={['Dashboard', 'Patients', 'Results', 'Messages']} active="Patients" brand="nexgen" compact clinic={clinic} />
         <div className="browser__main">
           <p className="browser__hello">Welcome, Dr. Collins</p>
           <div className="browser__cards">
@@ -151,7 +154,7 @@ export function BrandedDevices() {
           </div>
         </div>
       </div>
-      <PatientPhone brand="nexgen" />
+      <PatientPhone brand="nexgen" clinic={clinic} />
     </div>
   );
 }

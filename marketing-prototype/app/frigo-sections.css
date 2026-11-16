@@ -238,3 +238,25 @@
 
 /* Site override: carousel runs on autoplay only; the control bar is not shown. */
 .ff-src .signature-controls{display:none !important}
+/* Site override: tighter gap above the testimonials heading */
+.ff-src.testimonials-section{padding-top:clamp(56px,6vw,88px)}
+
+/* Site override: richer testimonial cards with a hover state */
+.ff-src .signature-slide{isolation:isolate;overflow:hidden;translate:0 0;transition:transform .55s cubic-bezier(.2,.65,.3,1),opacity .45s ease,box-shadow .45s ease,border-color .3s,translate .45s cubic-bezier(.2,.65,.3,1)}
+.ff-src .signature-slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(80% 60% at 100% 0%,rgba(201,35,44,.09),transparent 60%),linear-gradient(180deg,transparent 55%,rgba(23,23,23,.025));opacity:0;transition:opacity .5s ease}
+.ff-src .signature-slide::after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--red),#ff6a5f);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.2,.65,.3,1)}
+.ff-src .signature-slide.is-active::before{opacity:.6}
+.ff-src .signature-quote-mark{display:inline-block;width:max-content;transform-origin:left bottom;transition:transform .5s cubic-bezier(.2,.65,.3,1),color .3s}
+.ff-src .signature-monogram{transition:background-color .35s ease,color .35s ease,border-color .35s ease}
+.ff-src .signature-author{position:relative}
+.ff-src .signature-author::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.65,.3,1) .1s}
+@media (hover:hover){
+  .ff-src .signature-slide.is-active:hover{translate:0 -8px;border-color:var(--ink);box-shadow:0 40px 70px -34px rgba(23,23,23,.45)}
+  .ff-src .signature-slide.is-active:hover::before{opacity:1}
+  .ff-src .signature-slide.is-active:hover::after{transform:scaleX(1)}
+  .ff-src .signature-slide.is-active:hover .signature-quote-mark{transform:scale(1.25) rotate(-6deg)}
+  .ff-src .signature-slide.is-active:hover .signature-monogram{background:var(--ink);border-color:var(--ink);color:#fff}
+  .ff-src .signature-slide.is-active:hover .signature-author::before{transform:scaleX(1)}
+  .ff-src .signature-slide:not(.is-active):hover{opacity:.8}
+}
+@media (prefers-reduced-motion:reduce){.ff-src .signature-slide,.ff-src .signature-quote-mark,.ff-src .signature-slide::after{transition:none}}
