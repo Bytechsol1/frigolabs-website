@@ -95,7 +95,6 @@ export default function Home() {
           <div className="hero__grid-bg" aria-hidden="true" />
           <div className="wrap wrap--wide hero__inner">
             <div className="hero__copy" data-reveal>
-              <p className="hero__badge"><span />Diagnostic workflow platform for clinics</p>
               <h1>From Patient Enrollment to Lab Results. <em>One Connected Workflow.</em></h1>
               <p className="lead">Simplify diagnostic testing with centralized ordering, collection tracking, and secure results access, all within your clinic’s own branded experience.</p>
               <div className="hero__actions">
