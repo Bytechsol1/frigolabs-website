@@ -50,7 +50,7 @@ export function Header() {
   return (
     <header className={`header${scrolled ? ' is-scrolled' : ''}${menuOpen ? ' is-open' : ''}`}>
       <div className="wrap wrap--wide header__inner">
-        <a href="#top" className="header__brand" aria-label="Frigo Flow home" onClick={closeMenu}><Logo /></a>
+        <a href="#top" className="header__brand" aria-label="Frigo Flow home" onClick={closeMenu}><Logo tone="light" /></a>
 
         <nav className="header__nav" aria-label="Main">
           {links.map(([id, label]) => (
@@ -59,8 +59,8 @@ export function Header() {
         </nav>
 
         <div className="header__actions">
-          <a href={siteConfig.loginUrl} className="btn btn--navy" target="_blank" rel="noopener noreferrer">Login</a>
-          <a href="#demo" className="btn btn--navy">Request Demo <Icon name="arrow" /></a>
+          <a href={siteConfig.loginUrl} className="btn btn--white btn--sm" target="_blank" rel="noopener noreferrer">Login</a>
+          <a href="#demo" className="btn btn--white btn--sm">Request Demo <Icon name="arrow" /></a>
         </div>
 
         <button type="button" className="header__toggle" aria-expanded={menuOpen} aria-controls="mobile-menu" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(open => !open)}>
@@ -71,8 +71,8 @@ export function Header() {
       <div id="mobile-menu" className="mobile-menu" hidden={!menuOpen}>
         <nav className="wrap" aria-label="Mobile">
           {links.map(([id, label]) => <a key={id} href={`#${id}`} onClick={closeMenu}>{label}<Icon name="chevronRight" /></a>)}
-          <a href={siteConfig.loginUrl} className="btn btn--navy mobile-menu__login" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Login</a>
-          <a href="#demo" className="btn btn--gold" onClick={closeMenu}>Request a Demo <Icon name="arrow" /></a>
+          <a href={siteConfig.loginUrl} className="btn btn--ghost mobile-menu__login" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Login</a>
+          <a href="#demo" className="btn btn--white" onClick={closeMenu}>Request a Demo <Icon name="arrow" /></a>
         </nav>
       </div>
     </header>

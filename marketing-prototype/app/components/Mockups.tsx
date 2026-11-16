@@ -137,38 +137,6 @@ export function HeroDevices() {
   );
 }
 
-const testOrders: [string, string, Status, string][] = [
-  ['Jennifer Hall', 'Cardiometabolic Panel', 'progress', '—'],
-  ['Daniel Price', 'Hormone Panel', 'shipped', 'Nov 4, 2026'],
-  ['Lisa Gomez', 'Wellness Panel', 'available', 'Oct 30, 2026'],
-];
-
-export function TestOrdersPanel() {
-  return (
-    <div className="orders" role="img" aria-label="Test orders table showing fictional patients and their testing status">
-      <div className="orders__app">
-        <TopBar items={['Dashboard', 'Patients', 'Sessions', 'Lab Results']} active="Sessions" compact />
-        <div className="orders__body">
-          <div className="m-card">
-            <div className="m-card__head">
-              <span className="m-card__title"><Icon name="clipboard" />Test Orders</span>
-              <span className="orders__search"><Icon name="search" />Search patients...</span>
-            </div>
-            <div className="m-table">
-              <span className="m-th">Patient</span><span className="m-th">Test Panel</span><span className="m-th">Status</span><span className="m-th">Collection</span>
-              {testOrders.map(([name, panel, status, date]) => (
-                <div className="m-tr" key={name}>
-                  <span className="m-tr__name"><span className="m-tr__dot" />{name}</span><span>{panel}</span><span><Pill status={status} /></span><span>{date}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function BrandedDevices() {
   return (
     <div className="branded" role="img" aria-label="Example clinic-branded portal for the fictional NexGen Wellness clinic, on desktop and mobile">

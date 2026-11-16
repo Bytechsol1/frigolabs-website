@@ -17,7 +17,8 @@ From the repository root (or from `marketing-prototype/`):
 |---|---|
 | `app/page.tsx` | The ten sections, in order: nav, hero, How It Works, For Clinics, white-label, Capabilities, Data Protection, FAQ, Request a Demo, footer |
 | `app/components/Header.tsx` | Sticky header, active-section underline, Login dropdown (Clinic / Patient portal), mobile menu |
-| `app/components/Mockups.tsx` | HTML/CSS product previews (dashboard, patient phone, test-orders table, NexGen branded portal). **Fictional data only.** |
+| `app/components/Mockups.tsx` | HTML/CSS product previews (dashboard, patient phone, NexGen branded portal). **Fictional data only.** |
+| `app/components/Product.tsx` | SVG illustrations of the collection kit and device. Placeholders: replace with real product photography (put images in `public/` and render them with `next/image`). |
 | `app/components/Faq.tsx` | Accessible accordion, one item open at a time |
 | `app/components/DemoForm.tsx` | Demo form with client validation, loading / error / success states, honeypot |
 | `app/api/demo/route.ts` | Server validation, size limit, per-IP rate limit, honeypot, delivery to `DEMO_WEBHOOK_URL` |
@@ -25,6 +26,8 @@ From the repository root (or from `marketing-prototype/`):
 | `app/components/Logo.tsx`, `app/icon.svg` | Vector logo and favicon |
 | `app/globals.css` | Design tokens and all site styles; breakpoints 1199px (tablet) and 767px (mobile) |
 | `config.ts` | Login, legal and site URLs, read from environment variables |
+
+Visual style: black, white and a touch of red (`--red`), Geist + Instrument Serif + Geist Mono, modelled on the Rythm Health reference the client supplied.
 
 The product mockups scale with their container using CSS container units (`cqi`), so they stay sharp at every width.
 
