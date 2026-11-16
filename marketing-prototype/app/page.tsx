@@ -5,11 +5,12 @@ import { Faq } from './components/Faq';
 import { Header } from './components/Header';
 import { Icon, type IconName } from './components/Icon';
 import { Logo } from './components/Logo';
-import { BrandedDevices, HeroDevices } from './components/Mockups';
+import { BrandedDevices } from './components/Mockups';
+import { ClinicShowcase } from './components/ClinicShowcase';
+import { PartnerTestimonials } from './components/PartnerTestimonials';
 import { HeroSpotlight } from './components/HeroSpotlight';
 import { Device, HeroStage, KitBox } from './components/Product';
 import { Reveal } from './components/Reveal';
-import { Testimonials } from './components/Testimonials';
 
 const steps: [string, string, ReactNode][] = [
   ['Enroll Patient', 'Create a patient and select an available testing package.', (
@@ -48,12 +49,6 @@ const steps: [string, string, ReactNode][] = [
       </div>
     </div>
   )],
-];
-
-const benefits = [
-  ['Centralized Visibility', 'Manage patient testing workflows in one place.'],
-  ['Fewer Manual Follow-Ups', 'See available status updates and identify patients who need attention.'],
-  ['Clinic-Branded Experience', 'A familiar, branded portal for your staff and patients.'],
 ];
 
 const brandPoints = ['Clinic-specific branding (logo, colors, domain)', 'Branded clinic and patient portals', 'Consistent, professional patient experience'];
@@ -117,7 +112,7 @@ export default function Home() {
               <h2 id="how-title">How It <em>Works</em></h2>
               <p>A simple, end-to-end testing workflow.</p>
             </div>
-            <div className="rail" data-reveal aria-hidden="true">
+            <div className="rail" data-reveal="repeat" aria-hidden="true">
               <span className="rail__track"><span className="rail__fill" /></span>
               {steps.map(([title], i) => (
                 <span key={title} className="rail__node" style={{ transitionDelay: `${300 + i * 350}ms` }}>{String(i + 1).padStart(2, '0')}</span>
@@ -141,42 +136,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="section testimonials" aria-labelledby="tm-title">
-          <div className="wrap">
-            <div className="head" data-reveal>
-              <h2 id="tm-title">What Clinics Are Saying</h2>
-              <p>Teams using Frigo Flow to run their testing programs.</p>
-            </div>
-          </div>
-          <Testimonials />
-        </section>
-
-        {/* For clinics */}
-        <section className="section dark clinics" id="for-clinics" aria-labelledby="clinics-title">
-          <div className="wrap">
-            <div className="clinics__head" data-reveal>
-              <h2 id="clinics-title"><b>Spend Less Time Chasing Tests.</b> More Time Supporting Patients.</h2>
-            </div>
-            <div className="clinics__visual" data-reveal><HeroDevices /></div>
-            <ul className="clinics__list">
-              {benefits.map(([title, text], i) => (
-                <li key={title} data-reveal style={{ transitionDelay: `${i * 70}ms` }}>
-                  <Icon name="check" />
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {/* For clinics (ported from frigoflow-website@db141b9) */}
+        <ClinicShowcase />
 
         {/* White-label */}
         <section className="section brand" aria-labelledby="brand-title">
           <div className="wrap split">
             <div data-reveal><BrandedDevices /></div>
             <div data-reveal>
-              <p className="eyebrow">White-label experience</p>
               <h2 id="brand-title">Your Clinic. Your Brand. One Connected Platform.</h2>
               <p className="body">Deliver a seamless testing experience for your team and patients with a custom-branded portal, powered by Frigo Flow’s secure infrastructure.</p>
               <ul className="ticks">
@@ -222,6 +189,9 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* Testimonials (ported from frigoflow-website@db141b9) */}
+        <PartnerTestimonials />
 
         {/* FAQ + Demo */}
         <section className="section closing" aria-label="Questions and demo request">

@@ -18,7 +18,7 @@ From the repository root (or from `marketing-prototype/`):
 | `app/page.tsx` | The ten sections, in order: nav, hero, How It Works, For Clinics, white-label, Capabilities, Data Protection, FAQ, Request a Demo, footer |
 | `app/components/Header.tsx` | Sticky header, active-section underline, Login dropdown (Clinic / Patient portal), mobile menu |
 | `app/components/Mockups.tsx` | HTML/CSS product previews (dashboard, patient phone, NexGen branded portal). **Fictional data only.** |
-| `app/components/Testimonials.tsx` | Testimonial marquee. **The 12 quotes are placeholders** (role-only attribution); replace with real, approved clinic quotes before public launch. |
+| `app/components/PartnerTestimonials.tsx`, `app/components/ClinicShowcase.tsx`, `app/frigo-sections.css` | Testimonials carousel and For Clinics section, ported from `Bytechsol1/frigoflow-website@db141b9` (markup, data, JS, CSS, Inter font in `public/fonts`, photo in `public/images`). Styles are scoped to `.ff-src`. Testimonials are **fictional placeholders** (Clinic Partner 01–09). |
 | `app/components/Product.tsx` | SVG illustrations of the collection kit and device. Placeholders: replace with real product photography (put images in `public/` and render them with `next/image`). |
 | `app/components/Faq.tsx` | Accessible accordion, one item open at a time |
 | `app/components/DemoForm.tsx` | Demo form with client validation, loading / error / success states, honeypot |
