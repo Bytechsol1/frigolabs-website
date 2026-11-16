@@ -111,17 +111,30 @@ export default function Home() {
 
         {/* How it works */}
         <section className="section how" id="how-it-works" aria-labelledby="how-title">
+          <div className="how__bg" aria-hidden="true" />
           <div className="wrap">
             <div className="head" data-reveal>
-              <h2 id="how-title">How It Works</h2>
+              <h2 id="how-title">How It <em>Works</em></h2>
               <p>A simple, end-to-end testing workflow.</p>
+            </div>
+            <div className="rail" data-reveal aria-hidden="true">
+              <span className="rail__track"><span className="rail__fill" /></span>
+              {steps.map(([title], i) => (
+                <span key={title} className="rail__node" style={{ transitionDelay: `${300 + i * 350}ms` }}>{String(i + 1).padStart(2, '0')}</span>
+              ))}
             </div>
             <ol className="steps">
               {steps.map(([title, text, visual], i) => (
-                <li key={title} className="step" data-reveal style={{ transitionDelay: `${i * 70}ms` }}>
-                  <div className="step__media">{visual}</div>
-                  <h3>{i + 1}. {title}</h3>
-                  <p>{text}</p>
+                <li key={title} className="step" data-reveal style={{ transitionDelay: `${i * 90}ms` }}>
+                  <div className="step__media">
+                    <span className="step__ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    {visual}
+                  </div>
+                  <div className="step__body">
+                    <span className="step__tag">Step {String(i + 1).padStart(2, '0')}</span>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </div>
                 </li>
               ))}
             </ol>
@@ -143,7 +156,6 @@ export default function Home() {
         <section className="section dark clinics" id="for-clinics" aria-labelledby="clinics-title">
           <div className="wrap">
             <div className="clinics__head" data-reveal>
-              <p className="eyebrow eyebrow--light">For clinics</p>
               <h2 id="clinics-title"><b>Spend Less Time Chasing Tests.</b> More Time Supporting Patients.</h2>
             </div>
             <div className="clinics__visual" data-reveal><HeroDevices /></div>
@@ -228,30 +240,56 @@ export default function Home() {
       </main>
 
       <footer className="footer" id="contact">
-        <div className="wrap footer__grid">
-          <div className="footer__brand">
-            <a href="#top" aria-label="Frigo Flow home"><Logo tone="light" /></a>
-            <p>A diagnostic workflow platform that connects clinics, patients, and diagnostic partners.</p>
+        <div className="wrap wrap--wide">
+          <div className="footer__cta">
+            <h2>Ready to bring diagnostic testing <em>under your brand?</em></h2>
+            <div className="footer__cta-actions">
+              <a href="#demo" className="btn btn--white btn--lg">Request a Demo <Icon name="arrow" /></a>
+              <a href={siteConfig.loginUrl} className="btn btn--ghost btn--lg" target="_blank" rel="noopener noreferrer">Login</a>
+            </div>
           </div>
-          <nav className="footer__col" aria-label="Platform">
-            <h2>Platform</h2>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#for-clinics">For Clinics</a>
-            <a href="#capabilities">Capabilities</a>
-          </nav>
-          <nav className="footer__col" aria-label="Resources">
-            <h2>Resources</h2>
-            <a href="#faq">FAQ</a>
-            <a href="#demo">Contact</a>
-          </nav>
-          <nav className="footer__col" aria-label="Legal">
-            <h2>Legal</h2>
-            <a href={siteConfig.privacyUrl}>Privacy Policy</a>
-            <a href={siteConfig.termsUrl}>Terms of Service</a>
-          </nav>
+
+          <div className="footer__grid">
+            <div className="footer__brand">
+              <a href="#top" aria-label="Frigo Flow home"><Logo tone="light" /></a>
+              <p>A diagnostic workflow platform that connects clinics, patients, and diagnostic partners.</p>
+            </div>
+            <nav className="footer__col" aria-label="Platform">
+              <h2>Platform</h2>
+              <a href="#how-it-works">How It Works</a>
+              <a href="#for-clinics">For Clinics</a>
+              <a href="#capabilities">Capabilities</a>
+            </nav>
+            <nav className="footer__col" aria-label="Resources">
+              <h2>Resources</h2>
+              <a href="#faq">FAQ</a>
+              <a href="#demo">Contact</a>
+            </nav>
+            <nav className="footer__col" aria-label="Legal">
+              <h2>Legal</h2>
+              <a href={siteConfig.privacyUrl}>Privacy Policy</a>
+              <a href={siteConfig.termsUrl}>Terms of Service</a>
+            </nav>
+          </div>
         </div>
-        <div className="wrap footer__base">
+
+        <div className="footer__mega" aria-hidden="true">
+          <svg viewBox="0 0 1000 150" preserveAspectRatio="xMidYMax meet">
+            <defs>
+              <linearGradient id="mega-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#fff" stopOpacity=".95" />
+                <stop offset=".6" stopColor="#fff" stopOpacity=".35" />
+                <stop offset="1" stopColor="#fff" stopOpacity=".04" />
+              </linearGradient>
+            </defs>
+            <text x="500" y="138" textAnchor="middle" textLength="992" lengthAdjust="spacingAndGlyphs" fill="url(#mega-fill)">FRIGO FLOW</text>
+          </svg>
+        </div>
+
+        <div className="wrap wrap--wide footer__base">
           <span>© {new Date().getFullYear()} Frigo Flow. All rights reserved.</span>
+          <span className="footer__made"><i />Diagnostic workflow platform for clinics</span>
+          <a href="#top" className="footer__top">Back to top <Icon name="arrow" /></a>
         </div>
       </footer>
     </>
